@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
+import { Course } from  './models/class.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -15,7 +16,53 @@ const apiUrl = "http://192.168.0.7:3000/api/classroom";
 export class RestApiService {
 
   constructor(private http: HttpClient) { }
-  classes = ['Java','React','Angular'];
+  classes = ['Java','React','Angular','Machine Learning'];
+  courses = [
+    {
+      "id": "12",
+      "className": "Angular",
+      "instructor": "John",
+      "schedule": {},
+      "description": "This class is cool",
+      "maximumStudents": "10",
+      "icon": "",
+      "students": "",
+      "createdAt": "01/01/2001"
+    },
+        {
+      "id": "13",
+      "className": "Machine Learning",
+      "instructor": "John",
+      "schedule": {},
+      "description": "This class is cool",
+      "maximumStudents": "10",
+      "icon": "",
+      "students": "",
+      "createdAt": "01/01/2001"
+    },
+        {
+      "id": "14",
+      "className": "Java",
+      "instructor": "John",
+      "schedule": {},
+      "description": "This class is cool",
+      "maximumStudents": "10",
+      "icon": "",
+      "students": "",
+      "createdAt": "01/01/2001"
+    },
+        {
+      "id": "15",
+      "className": "React",
+      "instructor": "John",
+      "schedule": {},
+      "description": "This class is cool",
+      "maximumStudents": "10",
+      "icon": "",
+      "students": "",
+      "createdAt": "01/01/2001"
+    }];
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -36,7 +83,7 @@ export class RestApiService {
     return body || { };
   }
 
-  getClassroom(): Observable<any> {
+  getClassroom(): Observable<Array<Course>> {
      let observable=Observable.create(observer => {
           setTimeout(() => {
            let listing = this.generateMockListing();
@@ -79,11 +126,11 @@ export class RestApiService {
       );
   }
 
-  generateMockListing(): Array<any> {
-    let mockListing : Array<any>;
-    mockListing = new Array<any>();
+  generateMockListing(): Array<Course> {
+    let mockListing : Array<Course>;
+    mockListing = new Array<Course>();
     for(let i = 1; i <= 5 ; i++) {
-      let listing: any = new Object;
+      let listing: any = new Course;
       listing.id = i;
       listing.class_name = this.classes[Math.floor(Math.random()*this.classes.length)];
       listing.createdAt = new Date(); 
